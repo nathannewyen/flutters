@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:physics_concept/screens/home.dart';
+import 'package:physics_concept/screens/on_boarding.dart';
 
 void main() {
   runApp(const App());
@@ -11,7 +11,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
+      home: OnBoardingScreen(),
     );
   }
 }
