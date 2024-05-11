@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -14,6 +16,15 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final TextEditingController _addressController =
+      TextEditingController(text: '');
+
+  @override
+  void dispose() {
+    _addressController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -71,7 +82,9 @@ class _UserScreenState extends State<UserScreen> {
                   title: 'Address 2',
                   subtitle: 'Add or remove address',
                   icon: IconlyBold.profile,
-                  onPressed: () {},
+                  onPressed: () async {
+                    await _showAddressDialog();
+                  },
                   color: color,
                 ),
                 _listTiles(
@@ -119,7 +132,9 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: 'Logout',
                   icon: IconlyBold.logout,
-                  onPressed: () {},
+                  onPressed: () {
+                    _showLogoutDialog();
+                  },
                   color: color,
                 ),
               ],
@@ -128,6 +143,73 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Image.asset(
+                  'assets/images/warning-sign.png',
+                  width: 20,
+                  height: 20,
+                  fit: BoxFit.fill,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Text('Sign out'),
+              ],
+            ),
+            content: const Text(' Are you sure you want to sign out?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) Navigator.pop(context);
+                },
+                child: TextWidget(
+                    color: Colors.cyan, text: 'Cancel', textSize: 18),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: TextWidget(color: Colors.red, text: 'OK', textSize: 18),
+              ),
+            ],
+          );
+        });
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Address 2'),
+            content: TextField(
+              onChanged: (value) {
+                // print(value);
+              },
+              controller: _addressController,
+              maxLines: 5,
+              decoration: const InputDecoration(hintText: 'Your Address'),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Update')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Cancel')),
+            ],
+          );
+        });
   }
 
   Widget _listTiles(
