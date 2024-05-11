@@ -20,7 +20,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   final List<Map<String, dynamic>> _pages = [
     {'page': const HomeScreen(), 'title': 'Home'},
-    {'page': const CategoriesScreen(), 'title': 'Categories'},
+    {'page': CategoriesScreen(), 'title': 'Categories'},
     {'page': const CartScreen(), 'title': 'Cart'},
     {'page': const UserScreen(), 'title': 'User'},
   ];
