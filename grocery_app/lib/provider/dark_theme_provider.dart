@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:grocery_app/services/dark_theme_prefs.dart';
+
+import '../services/dark_theme_prefs.dart';
 
 class DarkThemeProvider with ChangeNotifier {
   DarkThemePrefs darkThemePrefs = DarkThemePrefs();

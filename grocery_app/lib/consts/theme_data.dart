@@ -19,6 +19,9 @@ class Styles {
           colorScheme: isDarkTheme
               ? const ColorScheme.dark()
               : const ColorScheme.light()),
+      textTheme: isDarkTheme
+          ? ThemeData.dark().textTheme
+          : ThemeData.light().textTheme,
     );
   }
 }
