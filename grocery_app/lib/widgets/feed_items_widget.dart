@@ -8,7 +8,7 @@ import 'package:grocery_app/widgets/text_widget.dart';
 import '../services/utils.dart';
 
 class FeedsWidget extends StatefulWidget {
-  const FeedsWidget({super.key});
+  const FeedsWidget({Key? key}) : super(key: key);
 
   @override
   State<FeedsWidget> createState() => _FeedsWidgetState();
@@ -16,24 +16,22 @@ class FeedsWidget extends StatefulWidget {
 
 class _FeedsWidgetState extends State<FeedsWidget> {
   final _quantityTextController = TextEditingController();
-
-  @override
-  void dispose() {
-    _quantityTextController.text = '1';
-    super.dispose();
-  }
-
   @override
   void initState() {
-    _quantityTextController.dispose();
+    _quantityTextController.text = '1';
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    Size size = Utils(context).getScreenSize;
-    final Color color = Utils(context).color;
+  void dispose() {
+    _quantityTextController.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Utils(context).color;
+    Size size = Utils(context).getScreenSize;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -46,11 +44,11 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             FancyShimmerImage(
               imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
               height: size.width * 0.21,
-              width: size.width * 0.21,
+              width: size.width * 0.2,
               boxFit: BoxFit.fill,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -69,39 +67,56 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const PriceWidget(),
+                  Flexible(
+                    flex: 4,
+                    child: PriceWidget(
+                      isOnSale: true,
+                      price: 5.9,
+                      salePrice: 2.99,
+                      textPrice: _quantityTextController.text,
+                    ),
+                  ),
                   const SizedBox(
                     width: 8,
                   ),
                   Flexible(
                     child: Row(
                       children: [
-                        FittedBox(
-                          child: TextWidget(
-                            text: 'KG',
-                            color: color,
-                            textSize: 18,
-                            isTitle: true,
+                        Flexible(
+                          flex: 1,
+                          child: FittedBox(
+                            child: TextWidget(
+                              text: 'KG',
+                              color: color,
+                              textSize: 18,
+                              isTitle: true,
+                            ),
                           ),
                         ),
                         const SizedBox(
                           width: 5,
                         ),
                         Flexible(
+                            flex: 2,
                             child: TextFormField(
-                          controller: _quantityTextController,
-                          keyboardType: TextInputType.number,
-                          key: const ValueKey('10'),
-                          style: TextStyle(color: color, fontSize: 18),
-                          maxLines: 1,
-                          enabled: true,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'))
-                          ],
-                        )),
+                              controller: _quantityTextController,
+                              key: const ValueKey('10'),
+                              style: TextStyle(color: color, fontSize: 18),
+                              keyboardType: TextInputType.number,
+                              maxLines: 1,
+                              enabled: true,
+                              onChanged: (value) {
+                                setState(() {});
+                              },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  RegExp('[0-9.]'),
+                                ),
+                              ],
+                            ))
                       ],
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -111,24 +126,25 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               child: TextButton(
                 onPressed: () {},
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Theme.of(context).cardColor),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    const RoundedRectangleBorder(
+                    backgroundColor:
+                        MaterialStateProperty.all(Theme.of(context).cardColor),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12))),
-                  ),
-                ),
+                          bottomLeft: Radius.circular(12.0),
+                          bottomRight: Radius.circular(12.0),
+                        ),
+                      ),
+                    )),
                 child: TextWidget(
-                  text: 'Add to Cart',
+                  text: 'Add to cart',
                   maxLines: 1,
                   color: color,
                   textSize: 20,
                 ),
               ),
-            ),
+            )
           ]),
         ),
       ),
