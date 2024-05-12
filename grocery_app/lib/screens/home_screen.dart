@@ -1,5 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/widgets/text_widget.dart';
 
 import '../services/utils.dart';
 import '../widgets/on_sale_widget.dart';
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Color color = Utils(context).color;
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     Size size = utils.getScreenSize;
@@ -45,7 +48,66 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        OnSaleWidget(),
+        const SizedBox(height: 6),
+        TextButton(
+            onPressed: () {},
+            child: TextWidget(
+              text: 'View All',
+              maxLines: 1,
+              color: Colors.blue,
+              textSize: 20,
+            )),
+        Row(
+          children: [
+            RotatedBox(
+              quarterTurns: -1,
+              child: Row(
+                children: [
+                  TextWidget(
+                    text: 'On Sale',
+                    color: Colors.red,
+                    textSize: 22,
+                    isTitle: true,
+                  ),
+                  const SizedBox(width: 5),
+                  const Icon(IconlyLight.discount, color: Colors.red),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              child: SizedBox(
+                height: size.height * 0.24,
+                child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, index) {
+                      return const OnSaleWidget();
+                    }),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextWidget(
+              text: 'Our Products',
+              color: color,
+              textSize: 22,
+              isTitle: true,
+            ),
+            TextButton(
+                onPressed: () {},
+                child: TextWidget(
+                  text: 'Browse All',
+                  maxLines: 1,
+                  color: Colors.blue,
+                  textSize: 20,
+                )),
+          ],
+        )
       ],
     ));
   }
