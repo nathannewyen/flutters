@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/services/utils.dart';
+import 'package:grocery_app/widgets/heart_btn_widget.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
 
 import 'price_widget.dart';
@@ -63,14 +64,7 @@ class _OnSaleWidgetState extends State<OnSaleWidget> {
                                   color: color,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Icon(
-                                  IconlyLight.heart,
-                                  size: 22,
-                                  color: color,
-                                ),
-                              ),
+                              const HeartBTN(),
                             ],
                           ),
                         ],
