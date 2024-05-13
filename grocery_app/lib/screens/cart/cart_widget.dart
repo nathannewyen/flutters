@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery_app/widgets/heart_btn_widget.dart';
 
+import '../../inner_screens/product_details_screen.dart';
+import '../../services/global_method.dart';
 import '../../services/utils.dart';
 import '../../widgets/text_widget.dart';
 
@@ -35,7 +37,10 @@ class _CartWidgetState extends State<CartWidget> {
     Size size = Utils(context).getScreenSize;
 
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          GlobalMethods.navigateTo(
+              ctx: context, routeName: ProductDetailsScreen.routeName);
+        },
         child: Row(
           children: [
             Expanded(
