@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../services/utils.dart';
+import '../widgets/back_widget.dart';
 import '../widgets/feed_items_widget.dart';
 import '../widgets/text_widget.dart';
 
@@ -14,12 +14,12 @@ class FeedsScreen extends StatefulWidget {
 }
 
 class _FeedsScreenState extends State<FeedsScreen> {
-  final TextEditingController? _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchTextsNode = FocusNode();
 
   @override
   void dispose() {
-    _searchController!.dispose();
+    _searchController.dispose();
     _searchTextsNode.dispose();
     super.dispose();
   }
@@ -31,16 +31,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            IconlyLight.arrowLeft2,
-            color: color,
-          ),
-        ),
+        leading: const BackWidget(),
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: TextWidget(

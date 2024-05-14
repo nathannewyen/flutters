@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/services/global_method.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/dark_theme_provider.dart';
@@ -96,7 +97,10 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: 'Wishlist',
                   icon: IconlyBold.heart,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                        ctx: context, routeName: '/WishlistScreen');
+                  },
                   color: color,
                 ),
                 _listTiles(
