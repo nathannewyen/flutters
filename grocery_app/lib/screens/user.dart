@@ -137,7 +137,11 @@ class _UserScreenState extends State<UserScreen> {
                   title: 'Logout',
                   icon: IconlyBold.logout,
                   onPressed: () {
-                    _showLogoutDialog();
+                    GlobalMethods.warningDialog(
+                        context: context,
+                        title: 'Sign out',
+                        subtitle: 'Are you sure you want to sign out?',
+                        fct: () {});
                   },
                   color: color,
                 ),

@@ -35,10 +35,10 @@ class WishlistWidget extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(left: 8),
                 width: size.width * 0.2,
-                height: size.height * 0.25,
+                height: size.height * 0.15,
                 child: FancyShimmerImage(
                   imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                  boxFit: BoxFit.fill,
+                  // boxFit: BoxFit.fill,
                   // height: screenHeight * .4,
                 ),
               ),
