@@ -56,19 +56,34 @@ class _BottomBarScreenState extends State<BottomBar> {
         selectedItemColor: isDark ? Colors.white : Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
+            icon: Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Icon(
+                Icons.home_rounded,
+                size: 30,
+              ),
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.space_dashboard_rounded),
+            icon: Icon(
+              Icons.space_dashboard_rounded,
+              size: 30,
+            ),
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(
+              Icons.favorite,
+              size: 30,
+            ),
             label: 'Interested',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded),
+            icon: Icon(
+              Icons.person_rounded,
+              size: 30,
+            ),
             label: 'Account Settings',
           ),
         ],
