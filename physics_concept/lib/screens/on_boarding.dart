@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:physics_concept/utils/global_methods.dart';
 
+import '../bottom_bar.dart';
 import '../widgets/text_widget.dart';
-import 'home.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -73,8 +72,11 @@ class OnBoardingScreen extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            GlobalMethods.navigateTo(
-                                ctx: context, routeName: HomeScreen.routeName);
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (ctx) => const BottomBar(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: const Color(0xFF0E0E0E),
