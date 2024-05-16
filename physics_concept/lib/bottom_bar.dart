@@ -35,15 +35,15 @@ class _BottomBarScreenState extends State<BottomBar> {
     bool isDark = themeState.getDarkTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _pages[_selectedIndex]['title'],
-          style: TextStyle(
-            color: isDark ? Colors.white : Colors.black,
-          ),
-        ),
-        backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     _pages[_selectedIndex]['title'],
+      //     style: TextStyle(
+      //       color: isDark ? Colors.white : Colors.black,
+      //     ),
+      //   ),
+      //   backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,
+      // ),
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: isDark ? Theme.of(context).cardColor : Colors.white,

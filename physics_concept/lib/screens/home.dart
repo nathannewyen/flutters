@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:physics_concept/widgets/article_widget.dart';
+import 'package:physics_concept/widgets/planets_widget.dart';
+
+import '../widgets/stars_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,27 +37,61 @@ class HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
 
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildSearchBar(theme, isDarkTheme),
-            const SizedBox(height: 20),
-            _buildCategoryFilters(theme, isDarkTheme),
-            const SizedBox(height: 20),
-          ],
-        ),
+      body: Stack(
+        children: [
+          StarsWidget(
+            starCount: 30,
+            screenWidth: screenSize.width,
+            screenHeight: screenSize.height,
+          ),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  _buildSearchBar(theme, isDarkTheme),
+                  const SizedBox(height: 20),
+                  _buildCategoryFilters(theme, isDarkTheme),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: ListView(
+                      children: const [
+                        PlanetCard(
+                          planetName: 'Mother Earth',
+                          description:
+                              'Earth is the third planet from the sun and the only known planet to support life. It has a diameter of 12,742 km.',
+                          assetName: 'earth',
+                          backgroundColor: Color(0XFFB6F3FF),
+                        ),
+                        PlanetCard(
+                          planetName: 'Venus',
+                          description:
+                              'Venus is the second planet from the sun and is often referred to as the Earth\'s sister planet.',
+                          assetName: 'venus',
+                          backgroundColor: Color(0XFFF6E3C4),
+                        ),
+                        ArticlesSection(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildSearchBar(ThemeData theme, bool isDarkTheme) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       decoration: BoxDecoration(
         color: isDarkTheme ? Colors.grey[900] : Colors.grey[200],
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Row(
         children: [
@@ -63,7 +101,7 @@ class HomeScreenState extends State<HomeScreen> {
             child: TextField(
               style: TextStyle(
                   color: isDarkTheme ? Colors.white : Colors.black,
-                  fontSize: 16,
+                  fontSize: 20,
                   fontWeight: FontWeight.normal),
               decoration: InputDecoration(
                 hintText: 'Search for planets and stars',
@@ -95,32 +133,35 @@ class HomeScreenState extends State<HomeScreen> {
       String label, int index, ThemeData theme, bool isDarkTheme) {
     bool selected = index == _selectedFilterIndex;
 
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _selectedFilterIndex = index;
-        });
-      },
-      borderRadius: BorderRadius.circular(20.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
-        decoration: BoxDecoration(
-          color: selected
-              ? (isDarkTheme ? Colors.white : Colors.black)
-              : (isDarkTheme ? Colors.grey[800] : Colors.white),
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-              color: selected
-                  ? (isDarkTheme ? Colors.white : Colors.black)
-                  : Colors.transparent),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _selectedFilterIndex = index;
+          });
+        },
+        borderRadius: BorderRadius.circular(20.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+          decoration: BoxDecoration(
             color: selected
-                ? (isDarkTheme ? Colors.black : Colors.white)
-                : theme.textTheme.titleMedium?.color,
+                ? (isDarkTheme ? Colors.white : Colors.black)
+                : (isDarkTheme ? Colors.grey[800] : Colors.white),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+                color: selected
+                    ? (isDarkTheme ? Colors.white : Colors.black)
+                    : Colors.transparent),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 16,
+              color: selected
+                  ? (isDarkTheme ? Colors.black : Colors.white)
+                  : theme.textTheme.titleMedium?.color,
+            ),
           ),
         ),
       ),
