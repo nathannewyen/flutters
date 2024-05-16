@@ -29,7 +29,7 @@ class ArticlesSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
-                'assets/svgs/uranus.svg',
+                'assets/svgs/venus_ring.svg',
                 width: 80,
                 height: 80,
               ),

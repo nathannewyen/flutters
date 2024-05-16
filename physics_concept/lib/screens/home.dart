@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:physics_concept/widgets/article_widget.dart';
-import 'package:physics_concept/widgets/planets_widget.dart';
 
+import '../widgets/planets_widget.dart';
 import '../widgets/stars_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,32 +51,40 @@ class HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildSearchBar(theme, isDarkTheme),
                   const SizedBox(height: 20),
                   _buildCategoryFilters(theme, isDarkTheme),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: ListView(
-                      children: const [
-                        PlanetCard(
-                          planetName: 'Mother Earth',
-                          description:
-                              'Earth is the third planet from the sun and the only known planet to support life. It has a diameter of 12,742 km.',
-                          assetName: 'earth',
-                          backgroundColor: Color(0XFFB6F3FF),
-                        ),
-                        PlanetCard(
-                          planetName: 'Venus',
-                          description:
-                              'Venus is the second planet from the sun and is often referred to as the Earth\'s sister planet.',
-                          assetName: 'venus',
-                          backgroundColor: Color(0XFFF6E3C4),
-                        ),
-                        ArticlesSection(),
-                      ],
+                  const SizedBox(height: 80),
+                  const SizedBox(
+                    height:
+                        270, // Adjust height to accommodate card height and margin
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          PlanetCard(
+                            planetName: 'Mother Earth',
+                            description:
+                                'Earth is the third planet from the sun and the only known planet to support life. It has a diameter of 12,742 km.',
+                            assetName: 'earth',
+                            backgroundColor: Color(0XFFB6F3FF),
+                          ),
+                          PlanetCard(
+                            planetName: 'Venus',
+                            description:
+                                'Venus is the second planet from the sun and is often referred to as the Earth\'s sister planet.',
+                            assetName: 'venus',
+                            backgroundColor: Color(0XFFF6E3C4),
+                          ),
+                          // Add more PlanetCard widgets here if needed
+                        ],
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  const Expanded(child: ArticlesSection()),
                 ],
               ),
             ),
