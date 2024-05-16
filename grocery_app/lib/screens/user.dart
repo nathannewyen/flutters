@@ -104,9 +104,12 @@ class _UserScreenState extends State<UserScreen> {
                   color: color,
                 ),
                 _listTiles(
-                  title: 'Viewd',
+                  title: 'Viewed',
                   icon: IconlyBold.show,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                        ctx: context, routeName: '/ViewedRecentlyScreen');
+                  },
                   color: color,
                 ),
                 _listTiles(
