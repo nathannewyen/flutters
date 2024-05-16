@@ -91,7 +91,10 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: 'Orders',
                   icon: IconlyBold.bag,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                        ctx: context, routeName: '/OrderScreen');
+                  },
                   color: color,
                 ),
                 _listTiles(

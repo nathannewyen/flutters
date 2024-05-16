@@ -17,7 +17,12 @@ class CartScreen extends StatelessWidget {
     bool isEmpty = true;
 
     return isEmpty
-        ? const EmptyScreen()
+        ? const EmptyScreen(
+            title: 'Cart Empty',
+            subTitle: 'Looks like you haven\'t added anything to your cart yet',
+            buttonText: 'Shop Now',
+            imagePath: 'assets/images/cart.png',
+          )
         : Scaffold(
             appBar: AppBar(
               elevation: 0,
