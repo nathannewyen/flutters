@@ -21,17 +21,13 @@ class PlanetCard extends StatelessWidget {
     final isDarkTheme = theme.brightness == Brightness.dark;
 
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         Container(
-          width: 200, // Fixed width for the card
-          height: 250, // Fixed height for the card
-          margin: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 8.0), // Added horizontal margin for spacing
+          width: 200,
+          margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
           decoration: BoxDecoration(
-            color: isDarkTheme
-                ? Colors.grey[800]
-                : backgroundColor.withOpacity(0.1),
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(20.0),
             boxShadow: [
               BoxShadow(
@@ -47,23 +43,20 @@ class PlanetCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50), // Space for the floating SVG
+                const SizedBox(height: 100),
                 Text(
                   planetName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: isDarkTheme ? Colors.white : Colors.black,
+                    color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Expanded(
                   child: Text(
                     description,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isDarkTheme ? Colors.white70 : Colors.black87,
-                    ),
+                    style: const TextStyle(fontSize: 14, color: Colors.black),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                   ),
@@ -89,12 +82,14 @@ class PlanetCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: -80, // Adjust this value to move the SVG up or down
-          left: 0, // Adjust this value to move the SVG left or right
-          child: SvgPicture.asset(
-            'assets/svgs/$assetName.svg',
-            width: 180,
-            height: 180,
+          top: -120,
+          left: -60,
+          child: SizedBox(
+            width: 280,
+            height: 280,
+            child: SvgPicture.asset(
+              'assets/svgs/$assetName.svg',
+            ),
           ),
         ),
       ],

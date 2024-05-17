@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:physics_concept/widgets/article_widget.dart';
 
 import '../widgets/planets_widget.dart';
-import '../widgets/stars_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,56 +36,57 @@ class HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
 
-    final screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: Stack(
-        children: [
-          StarsWidget(
-            starCount: 30,
-            screenWidth: screenSize.width,
-            screenHeight: screenSize.height,
+      body: CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+            pinned: true,
+            floating: false,
+            delegate: _SliverAppBarDelegate(
+              minHeight: 100,
+              maxHeight: 220,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    _buildSearchBar(theme, isDarkTheme),
+                    const SizedBox(height: 10),
+                    _buildCategoryFilters(theme, isDarkTheme),
+                  ],
+                ),
+              ),
+            ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildSearchBar(theme, isDarkTheme),
-                  const SizedBox(height: 20),
-                  _buildCategoryFilters(theme, isDarkTheme),
-                  const SizedBox(height: 80),
-                  const SizedBox(
-                    height:
-                        270, // Adjust height to accommodate card height and margin
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          PlanetCard(
-                            planetName: 'Mother Earth',
-                            description:
-                                'Earth is the third planet from the sun and the only known planet to support life. It has a diameter of 12,742 km.',
-                            assetName: 'earth',
-                            backgroundColor: Color(0XFFB6F3FF),
-                          ),
-                          PlanetCard(
-                            planetName: 'Venus',
-                            description:
-                                'Venus is the second planet from the sun and is often referred to as the Earth\'s sister planet.',
-                            assetName: 'venus',
-                            backgroundColor: Color(0XFFF6E3C4),
-                          ),
-                          // Add more PlanetCard widgets here if needed
-                        ],
-                      ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                const SizedBox(height: 20),
+                const SizedBox(
+                  height: 300,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        PlanetCard(
+                          planetName: 'Mother Earth',
+                          description:
+                              'Earth is the third planet from the sun and the only known planet to support life. It has a diameter of 12,742 km.',
+                          assetName: 'earth',
+                          backgroundColor: Color(0XFFB6F3FF),
+                        ),
+                        PlanetCard(
+                          planetName: 'Venus',
+                          description:
+                              'Venus is the second planet from the sun and is often referred to as the Earth\'s sister planet.',
+                          assetName: 'venus',
+                          backgroundColor: Color(0XFFF6E3C4),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  const Expanded(child: ArticlesSection()),
-                ],
-              ),
+                ),
+                const SizedBox(height: 60),
+                const ArticlesSection(),
+              ],
             ),
           ),
         ],
@@ -174,5 +174,36 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(covariant _SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
